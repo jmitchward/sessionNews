@@ -4,7 +4,7 @@ import json
 
 class getBill:
     def __init__(self, billID):
-        getRequest = requests.get("https://api.legiscan.com/?key=37171dfe48f4ed320021de67197e3217&op=getBill&id=" + billID)
+        getRequest = requests.get("https://api.legiscan.com/?key=37171dfe48f4ed320021de67197e3217&op=getBill&id=" + str(billID))
         convertResponse = json.loads(getRequest.text)
         self.currentBill = convertResponse['bill']
 
@@ -20,7 +20,7 @@ class getBill:
     def getSponsors(self):
         sponsorList = list()
         for each in self.currentBill['sponsors']:
-            sponsorList.append((each['people_id'], each['party'], each['first_name '] + each['last_name']))
+            sponsorList.append((each['people_id'], each['party'], each['first_name'] + ' ' + each['last_name']))
         return sponsorList
 
     def getVotes(self):

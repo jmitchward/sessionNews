@@ -14,7 +14,7 @@ def getSession(sessionID):
     billList = list()
 
     for each in currentSession:
-        billList.append((currentSession[each]['bill_id'], currentSession[each]['title']))
+        billList.append((currentSession[each]['bill_id'], currentSession[each]['number'], currentSession[each]['title']))
 
     return billList
 

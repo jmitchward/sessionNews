@@ -15,18 +15,21 @@ class main:
         #        print(each)
 
         #    sessionSelect = input("Select a session: ")
+
         print("Welcome. Here are the bills for the most recent session in Kentucky.")
         self.currentSession = get_session.getSession("KY")
 
         self.billSelect()
 
     def billSelect(self):
-        print("Bill ID ", " Bill Title")
+        print("Bill Number", "|",  " Bill Title")
         for each in self.currentSession:
-            print(each)
-
+            print(each[1], "|", each[2])
         billSelect = input("Select a bill: ")
-        nextBill = get_bill.getBill(billSelect)
+        for bills in self.currentSession:
+            if bills[1].lower() == billSelect.lower():
+                thisBill = bills[0]
+        nextBill = get_bill.getBill(thisBill)
         print(nextBill.getTitle())
         self.billDetail(nextBill)
 
@@ -36,7 +39,8 @@ class main:
 2. Sponsors
 3. Votes
 4. Document ID
-5. Go Back""")
+5. Go Back
+Select: """)
         try:
             if int(billDetail) == 1:
                 list_a = currentBill.getHistory()
@@ -52,9 +56,12 @@ class main:
                 self.billDetail(currentBill)
             elif int(billDetail) == 3:
                 list_a = currentBill.getVotes()
-                print("Votes: ")
-                for each in list_a:
-                    print(each)
+                if not list_a:
+                    print("This bill was not voted on.")
+                else:
+                    print("Votes: ")
+                    for each in list_a:
+                        print(each)
                 self.billDetail(currentBill)
             elif int(billDetail) == 4:
                 list_a = currentBill.getDocID()
@@ -66,5 +73,6 @@ class main:
         except ValueError:
             print("Please enter the number selection.")
             self.billDetail(currentBill)
+
 
 main()
