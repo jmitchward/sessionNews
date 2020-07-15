@@ -1,9 +1,11 @@
 import requests
 import json
+import logging
 
 
 class getBill:
     def __init__(self, billID):
+        logging.basicConfig(level=logging.DEBUG, format=' %(asctime)s - %(levelname)s - %(message)s)')
         getRequest = requests.get("https://api.legiscan.com/?key=37171dfe48f4ed320021de67197e3217&op=getBill&id=" + str(billID))
         convertResponse = json.loads(getRequest.text)
         self.currentBill = convertResponse['bill']
@@ -15,7 +17,7 @@ class getBill:
         historyList = list()
         for each in self.currentBill['history']:
             historyList.append((each['date'], each['chamber'], each['action']))
-            return historyList
+        return historyList
 
     def getSponsors(self):
         sponsorList = list()

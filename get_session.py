@@ -8,7 +8,7 @@ def getSession(sessionID):
     currentSession = convertResponse['masterlist']
 
     sessionName = currentSession['session']['session_name']
-    print("Bill List retrieved for ", sessionName)
+    print("Bill List retrieved for", sessionName)
 
     currentSession.pop('session')
     billList = list()
